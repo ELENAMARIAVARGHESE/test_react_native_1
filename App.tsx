@@ -4,8 +4,8 @@ import InstagramHomePage from './src/screens/InstagramHomePage';
 
 const App = () => {
   return(
-  // <Login></Login>
-  <InstagramHomePage></InstagramHomePage>
+  <Login></Login>
+  // <InstagramHomePage></InstagramHomePage>
   
   );
   
