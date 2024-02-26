@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { TouchableOpacity,View,Text,StyleSheet } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
 const ButtonComponent = () => {
     const [count, setCount] = useState<number>(0);
+    const navigation =useNavigation();
 
     const onPress = (): void => {
       setCount(prevCount => prevCount + 1);
       console.log('We are here ' + count);
+      navigation.navigate('Home Page',{});
     };
 
     return (

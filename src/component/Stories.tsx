@@ -1,15 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, Image } from 'react-native';
+import { getFeedsAPI } from "../network/ApiHook";
 
-const stories = [
-    { id: '1', title: 'Your Story', imageUrl: 'https://png.pngtree.com/png-vector/20221103/ourlarge/pngtree-man-businessman-retro-style-profile-comic-book-white-vector-png-image_20386644.jpg' },
-    { id: '2', title: 'Hari Lee', imageUrl: 'https://png.pngtree.com/png-vector/20221103/ourlarge/pngtree-man-businessman-retro-style-profile-comic-book-white-vector-png-image_20386644.jpg' },
-    { id: '3', title: 'Joey', imageUrl: 'https://png.pngtree.com/png-vector/20221103/ourlarge/pngtree-man-businessman-retro-style-profile-comic-book-white-vector-png-image_20386644.jpg' },
-    { id: '6', title: 'Changler Bing', imageUrl: 'https://png.pngtree.com/png-vector/20221103/ourlarge/pngtree-man-businessman-retro-style-profile-comic-book-white-vector-png-image_20386644.jpg' },
-    { id: '4', title: 'Monica Geller', imageUrl: 'https://png.pngtree.com/png-vector/20221103/ourlarge/pngtree-man-businessman-retro-style-profile-comic-book-white-vector-png-image_20386644.jpg' },
-    { id: '5', title: 'Ross', imageUrl: 'https://png.pngtree.com/png-vector/20221103/ourlarge/pngtree-man-businessman-retro-style-profile-comic-book-white-vector-png-image_20386644.jpg' },
-    { id: '7', title: 'Rach', imageUrl: 'https://png.pngtree.com/png-vector/20221103/ourlarge/pngtree-man-businessman-retro-style-profile-comic-book-white-vector-png-image_20386644.jpg' },
-];
+
 
 type ItemProps = { title: string, imageUrl: string };
 
@@ -21,13 +14,29 @@ const Story = ({ title, imageUrl }: ItemProps) => (
 );
 
 const Stories = () => {
+  const [storiesList, setstoriesList] = useState<any[]>([]);
+
+  useEffect(() => {
+    const getStories= async () => {
+      try {
+        const {contentResp, errorMessage} = await getFeedsAPI(
+          'v1/e4cf6dd8-ac8c-472c-bcf0-62adf77b1f2a',
+        );
+        setstoriesList(contentResp);
+      
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    getStories();
+  }, []);
   return (
     <SafeAreaView>
         <Text style={{paddingLeft:10,color:'black'}}>Stories</Text>
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal={true}
-        data={stories}
+        data={storiesList}
         renderItem={({ item }) => <Story title={item.title} imageUrl={item.imageUrl} />}
         keyExtractor={item => item.id}
       />

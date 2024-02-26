@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, TextInput, Text, TouchableOpacity } from 'rea
 import ButtonComponent from '../component/Button';
 import InstagramHeader from '../component/InstagramHeader';
 import Stories from '../component/Stories';
+import Feed from '../component/feedSection';
 
 const InstagramHomePage = () => {
   
@@ -15,6 +16,10 @@ const InstagramHomePage = () => {
         <Stories>
             
         </Stories>
+        <Feed></Feed>
+       
+
+       
 
 
     </SafeAreaView>
